@@ -1,0 +1,40 @@
+<div class="aw-container-wrap" ng-app="showApp" ng-controller="showController">
+    <div class="container">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <div class="col-sm-12 col-md-9 aw-main-content">
+                    <% include public/question-content %>
+                    <% include public/reply %>
+                    <% include public/editor %>
+                </div>
+                <div class="col-md-3 aw-side-bar hidden-xs hidden-sm">
+                    <% include public/author %>
+                    <% include public/other %>
+                    <% include public/about %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('textarea.reply_editor').each(function(index,value){
+        var editor = new SimpleMDE({
+            element:value,
+            status:[],
+            /*placeholder:'请写下您的评论...'*/
+        })
+        var $el = $(this);
+        editor.render(this);
+        //绑定editor
+        $(this).data('editor', editor);
+    })
+    moment.locale('zh-cn');
+    function formatTime (date, friendly){
+        date = moment(date);
+        if (friendly) {
+            return date.fromNow();
+        } else {
+            return date.format('YYYY-MM-DD HH:mm');
+        }
+    }
+</script>
